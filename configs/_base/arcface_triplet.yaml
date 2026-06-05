@@ -1,0 +1,39 @@
+defaults:
+  train:
+    epochs: 100
+    lr: 5.0e-4
+    lr_min: 1.0e-4
+    lr_schedule: cosine
+    lr_warmup_start: 1.0e-7
+    lr_warmup_steps: 25000
+    weight_decay: 2.0e-2
+    repeat_per_epoch: 2
+    train_only_classifier_epochs: 0
+    freeze_backbone_epochs: 0
+    ce_weight: 0.0
+
+    arcface_weight: 1.0
+    arcface_margin: 0.2
+    arcface_scale: 64.0
+    arcface_mlp_dim: 0
+    arcface_weight_schedule: constant
+    arcface_weight_start: 0.0
+    arcface_weight_warmup_steps: 0
+
+    triplet_loss: true
+    triplet_weight: 10.0
+    triplet_margin: 0.2
+    triplet_soft_margin: true
+    triplet_semi_hard: false
+    triplet_weight_schedule: constant
+    triplet_weight_start: 0.0
+    triplet_weight_warmup_steps: 0
+    triplet_margin_schedule: constant
+    triplet_margin_start: 0.1
+    triplet_margin_warmup_steps: 0
+
+    head_decor_weight: 0.0
+    head_decor_weight_start: 0.0
+    head_decor_warmup_steps: 0
+    head_decor_decay_steps: 0
+

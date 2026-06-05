@@ -1,0 +1,27 @@
+defaults:
+  data:
+    train_root: "${PATCHFORMER_DATA_ROOT:-data}/hisfrag20/hisfrag20"
+    train_mask_root: "${PATCHFORMER_DATA_ROOT:-data}/hisfrag20/hisfrag20"
+    train_patches_root: "${PATCHFORMER_DATA_ROOT:-data}/hisfrag20/train_patches_packed"
+    train_use_precomputed_patches: true
+    cache_packed_patches_in_memory: false
+
+    val_root: "${PATCHFORMER_DATA_ROOT:-data}/hisfrag20/hisfrag20_test"
+    val_mask_root: "${PATCHFORMER_DATA_ROOT:-data}/hisfrag20/hisfrag20_test_masks"
+    val_patches_root: "${PATCHFORMER_DATA_ROOT:-data}/hisfrag20/patches_val"
+    val_use_precomputed_patches: false
+    val_class_id_index: -1
+
+    image_ext: [".jpg", ".png"]
+    mask_ext: [".jpg", ".png"]
+    patch_ext: [".jpg", ".png"]
+    batch_size: 128
+    eval_batch_size: 16
+    balanced_batch: true
+    samples_per_class: 4
+    num_workers: 24
+    num_patches_eval: 256
+    split_patches_to_samples: [1, 1, 2, 2, 4, 4]
+    augment_patches: true
+    augment_otsu: false
+    augment_morphology: false

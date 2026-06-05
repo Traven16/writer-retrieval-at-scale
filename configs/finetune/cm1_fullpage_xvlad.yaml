@@ -1,0 +1,84 @@
+extends:
+  - ../_base/cm1_data.yaml
+  - ../_base/xvlad_resnet18.yaml
+  - ../_base/arcface_triplet.yaml
+  - ../_base/runtime.yaml
+
+defaults:
+  data:
+    augment_patches: false
+    batch_size: 8
+    eval_batch_size: 8
+    full_image_input: true
+    full_image_height: 1400
+    full_image_width: 1000
+    num_patches_eval: 1
+    page_rrc_scale_min: 0.8
+    page_rrc_scale_max: 1.0
+    split_patches_to_samples: [1]
+    train_use_precomputed_patches: false
+    val_use_precomputed_patches: false
+  eval:
+    full_page_eval: true
+  model:
+    no_classifier: true
+    num_patches: 1
+  train:
+    epochs: 4
+    lr: 5.0e-5
+    lr_min: 1.0e-6
+    lr_schedule: cosine
+    lr_warmup_start: 1.0e-7
+    lr_warmup_steps: 10000
+    repeat_per_epoch: 1
+  run:
+    results_dir: "${PATCHFORMER_OUTPUT_ROOT:-outputs}/results/cm1_fullpage_xvlad"
+    log_dir: "${PATCHFORMER_OUTPUT_ROOT:-outputs}/runs/cm1_fullpage_xvlad/{run_name}"
+    save_path: "${PATCHFORMER_CHECKPOINT_ROOT:-outputs/checkpoints}/cm1_fullpage_xvlad/{run_name}.pt"
+
+experiments:
+  - name: fullpage_ft_ablate_heads_4
+    overrides:
+      resume_weights: "${PATCHFORMER_CHECKPOINT_ROOT:-outputs/checkpoints}/cm1_xvlad_ablations/ablate_heads_4.pt"
+      model:
+        d_model: 256
+        nhead: 4
+        xvlad_clusters: 1
+        xvlad_ghost_clusters: 2
+      data:
+        full_image_height: 1568
+        full_image_width: 1120
+
+  - name: fullpage_ft_ablate_agg_xvlad_k4_g1_h1
+    overrides:
+      resume_weights: "${PATCHFORMER_CHECKPOINT_ROOT:-outputs/checkpoints}/cm1_xvlad_ablations/ablate_agg_xvlad_k4_g1_h1.pt"
+      model:
+        d_model: 512
+        nhead: 1
+        xvlad_clusters: 4
+        xvlad_ghost_clusters: 1
+
+  - name: fullpage_ft_ablate_agg_ghostvlad_k8_g1
+    overrides:
+      resume_weights: "${PATCHFORMER_CHECKPOINT_ROOT:-outputs/checkpoints}/cm1_xvlad_ablations/ablate_agg_ghostvlad_k8_g1.pt"
+      model:
+        decoder_type: ghostvlad
+        d_model: 512
+        nhead: 16
+        xvlad_clusters: null
+        xvlad_ghost_clusters: null
+        ghostvlad_clusters: 8
+        ghostvlad_ghost_clusters: 1
+
+  - name: fullpage_ft_cm1_mean_pooling
+    overrides:
+      resume_weights: "${PATCHFORMER_CHECKPOINT_ROOT:-outputs/checkpoints}/cm1_xvlad/cm1_mean_pooling.pt"
+      model:
+        decoder_type: mean_pooling
+        d_model: 512
+        nhead: 16
+        xvlad_clusters: null
+        xvlad_ghost_clusters: null
+      data:
+        full_image_height: 1568
+        full_image_width: 1120

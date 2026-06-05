@@ -1,0 +1,27 @@
+extends:
+  - ../_base/cm1_data.yaml
+  - ../_base/xvlad_resnet18.yaml
+  - ../_base/arcface_triplet.yaml
+  - ../_base/runtime.yaml
+
+defaults:
+  run:
+    results_dir: "${PATCHFORMER_OUTPUT_ROOT:-outputs}/results/cm1_xvlad_ablations"
+    log_dir: "${PATCHFORMER_OUTPUT_ROOT:-outputs}/runs/cm1_xvlad_ablations/{run_name}"
+    save_path: "${PATCHFORMER_CHECKPOINT_ROOT:-outputs/checkpoints}/cm1_xvlad_ablations/{run_name}.pt"
+
+experiments:
+  - name: ablate_loss_arcface_only
+    overrides:
+      train:
+        triplet_loss: false
+        triplet_weight: 0.0
+
+  - name: ablate_loss_triplet_only
+    overrides:
+      train:
+        arcface_weight: 0.0
+
+  - name: ablate_loss_arcface_plus_triplet
+    overrides: {}
+

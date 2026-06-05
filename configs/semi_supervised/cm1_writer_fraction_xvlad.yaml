@@ -1,0 +1,43 @@
+extends:
+  - ../_base/cm1_data.yaml
+  - ../_base/xvlad_resnet18.yaml
+  - ../_base/arcface_triplet.yaml
+  - ../_base/runtime.yaml
+
+defaults:
+  data:
+    split_patches_to_samples: [1, 1, 2, 2, 4, 4]
+    train_writer_subset_seed: 41023
+  run:
+    results_dir: "${PATCHFORMER_OUTPUT_ROOT:-outputs}/results/semi-supervised-cm1/cm1_writer_fraction_xvlad"
+    log_dir: "${PATCHFORMER_OUTPUT_ROOT:-outputs}/runs/semi-supervised-cm1/cm1_writer_fraction_xvlad/{run_name}"
+    save_path: "${PATCHFORMER_CHECKPOINT_ROOT:-outputs/checkpoints}/semi-supervised-cm1/cm1_writer_fraction_xvlad/{run_name}.pt"
+
+experiments:
+  - name: cm1_xvlad_writers_05pct_reps20
+    overrides:
+      data:
+        train_writer_fraction: 0.05
+      train:
+        repeat_per_epoch: 20
+
+  - name: cm1_xvlad_writers_10pct_reps10
+    overrides:
+      data:
+        train_writer_fraction: 0.10
+      train:
+        repeat_per_epoch: 10
+
+  - name: cm1_xvlad_writers_25pct_reps4
+    overrides:
+      data:
+        train_writer_fraction: 0.25
+      train:
+        repeat_per_epoch: 4
+
+  - name: cm1_xvlad_writers_50pct_reps2
+    overrides:
+      data:
+        train_writer_fraction: 0.50
+      train:
+        repeat_per_epoch: 2

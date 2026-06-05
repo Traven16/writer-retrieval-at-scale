@@ -1,0 +1,25 @@
+defaults:
+  data:
+    train_root: "${PATCHFORMER_DATA_ROOT:-data}/cm1_final/train"
+    train_mask_root: "${PATCHFORMER_DATA_ROOT:-data}/cm1_final_masks/train"
+    train_patches_root: "${PATCHFORMER_DATA_ROOT:-data}/cm1_final_patches/train"
+    train_use_precomputed_patches: true
+    cache_packed_patches_in_memory: false
+
+    val_root: "${PATCHFORMER_DATA_ROOT:-data}/cm1_final/val"
+    val_mask_root: "${PATCHFORMER_DATA_ROOT:-data}/cm1_final_masks/val"
+    val_use_precomputed_patches: false
+
+    image_ext: [".jpg", ".png"]
+    mask_ext: [".png", ".jpg"]
+    patch_ext: [".png"]
+    batch_size: 128
+    eval_batch_size: 16
+    balanced_batch: true
+    samples_per_class: 2
+    num_workers: 24
+    num_patches_eval: 256
+    split_patches_to_samples: [1]
+    augment_patches: true
+    augment_otsu: false
+    augment_morphology: false

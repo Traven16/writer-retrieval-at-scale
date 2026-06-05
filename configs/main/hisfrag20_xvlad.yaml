@@ -1,0 +1,84 @@
+extends:
+  - ../_base/hisfrag20_data.yaml
+  - ../_base/xvlad_resnet18.yaml
+  - ../_base/runtime.yaml
+
+defaults:
+  eval:
+    retrieval_eval: true
+    val_every: 2
+    val_features: cls
+    val_include_queries: false
+    validate_before_first_epoch: false
+    no_progress: false
+
+  model:
+    d_model: 256
+    nhead: 4
+    dim_feedforward: 1024
+    num_decoder_layers: 0
+    num_queries: 8
+    xvlad_clusters: 1
+    xvlad_ghost_clusters: 2
+
+  train:
+    epochs: 70
+    lr: 2.0e-4
+    lr_min: 1.0e-4
+    lr_schedule: cosine
+    lr_warmup_start: 1.0e-7
+    lr_warmup_steps: 4000
+    weight_decay: 2.0e-2
+    repeat_per_epoch: 1
+    train_only_classifier_epochs: 0
+    freeze_backbone_epochs: 0
+    ce_weight: 0.0
+
+    arcface_weight: 1.0
+    arcface_margin: 0.2
+    arcface_scale: 64.0
+    arcface_mlp_dim: 0
+    arcface_weight_schedule: constant
+    arcface_weight_start: 0.0
+    arcface_weight_warmup_steps: 0
+
+    triplet_loss: true
+    triplet_weight: 10.0
+    triplet_margin: 0.3
+    triplet_soft_margin: true
+    triplet_semi_hard: false
+    triplet_weight_schedule: constant
+    triplet_weight_start: 0.0
+    triplet_weight_warmup_steps: 0
+    triplet_margin_schedule: constant
+    triplet_margin_start: 0.1
+    triplet_margin_warmup_steps: 0
+
+    head_decor_weight: 0.0
+    head_decor_weight_start: 0.0
+    head_decor_warmup_steps: 0
+    head_decor_decay_steps: 0
+    insert_weights_on_mismatch: false
+    log_interval: 50
+
+  run:
+    seed: 42
+    results_dir: "${PATCHFORMER_OUTPUT_ROOT:-outputs}/results/hisfrag20_xvlad"
+    log_dir: "${PATCHFORMER_OUTPUT_ROOT:-outputs}/runs/hisfrag20_xvlad/{run_name}"
+    save_path: "${PATCHFORMER_CHECKPOINT_ROOT:-outputs/checkpoints}/hisfrag20_xvlad/{run_name}.pt"
+
+experiments:
+  - name: hisfrag20_xvlad_ablate_heads_4
+    overrides: {}
+
+  - name: hisfrag20_xvlad_ablate_heads_16
+    overrides:
+      model:
+        nhead: 16
+        d_model: 1024
+
+  - name: hisfrag20_xvlad_ablate_heads_32
+    overrides:
+      model:
+        nhead: 32
+        d_model: 2048

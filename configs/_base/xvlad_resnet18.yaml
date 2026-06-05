@@ -1,0 +1,20 @@
+defaults:
+  model:
+    encoder_name: resnet18
+    encoder_pretrained: true
+    resnet_3x3_stem: true
+    decoder_type: xvlad
+    d_model: 256
+    nhead: 4
+    d_head: 0
+    dim_feedforward: 1024
+    dropout: 0.3
+    num_encoder_layers: 0
+    num_decoder_layers: 0
+    num_queries: 8
+    num_patches: 64
+    xvlad_clusters: 1
+    xvlad_ghost_clusters: 2
+    xvlad_no_intra_norm: false
+    no_classifier: false
+

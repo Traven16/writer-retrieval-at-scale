@@ -1,0 +1,1 @@
+extends: semi_supervised/cm1_writer_fraction_xvlad.yaml

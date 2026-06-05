@@ -1,0 +1,39 @@
+extends:
+  - ../_base/cm1_data.yaml
+  - ../_base/xvlad_resnet18.yaml
+  - ../_base/arcface_triplet.yaml
+  - ../_base/runtime.yaml
+
+defaults:
+  data:
+    split_patches_to_samples: [1, 1, 2, 2, 4, 4]
+  run:
+    results_dir: "${PATCHFORMER_OUTPUT_ROOT:-outputs}/results/cm1_xvlad"
+    log_dir: "${PATCHFORMER_OUTPUT_ROOT:-outputs}/runs/cm1_xvlad/{run_name}"
+    save_path: "${PATCHFORMER_CHECKPOINT_ROOT:-outputs/checkpoints}/cm1_xvlad/{run_name}.pt"
+
+experiments:
+  - name: cm1_xvlad_giga
+    overrides: {}
+
+  - name: cm1_xvlad_giga_batch_up
+    overrides:
+      data:
+        batch_size: 256
+      model:
+        num_patches: 32
+      train:
+        repeat_per_epoch: 4
+
+  - name: cm1_mean_pooling
+    overrides:
+      model:
+        decoder_type: mean_pooling
+        xvlad_clusters: null
+        xvlad_ghost_clusters: null
+
+  - name: cm1_xvlad_small
+    overrides:
+      model:
+        d_model: 512
+        nhead: 8

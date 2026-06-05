@@ -1,0 +1,22 @@
+{
+  "full_page": 94456,
+  "splits": {
+    "test": {
+      "count": 291891,
+      "full_page": 72398,
+      "with_side": 219493
+    },
+    "train": {
+      "count": 88291,
+      "full_page": 20003,
+      "with_side": 68288
+    },
+    "val": {
+      "count": 6928,
+      "full_page": 2055,
+      "with_side": 4873
+    }
+  },
+  "total": 387110,
+  "with_side": 292654
+}

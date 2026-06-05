@@ -1,0 +1,18 @@
+defaults:
+  eval:
+    retrieval_eval: true
+    val_every: 1
+    validate_before_first_epoch: false
+    no_progress: true
+
+  train:
+    use_amp: true
+    insert_weights_on_mismatch: true
+    log_interval: 10
+    debug_arcface: false
+
+  run:
+    seed: 41023
+    results_dir: "${PATCHFORMER_OUTPUT_ROOT:-outputs}/results/default"
+    log_dir: "${PATCHFORMER_OUTPUT_ROOT:-outputs}/runs/default/{run_name}"
+    save_path: "${PATCHFORMER_CHECKPOINT_ROOT:-outputs/checkpoints}/default/{run_name}.pt"

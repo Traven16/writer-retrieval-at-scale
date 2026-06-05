@@ -1,0 +1,37 @@
+extends:
+  - ../_base/cm1_data.yaml
+  - ../_base/xvlad_resnet18.yaml
+  - ../_base/arcface_triplet.yaml
+  - ../_base/runtime.yaml
+
+defaults:
+  run:
+    results_dir: "${PATCHFORMER_OUTPUT_ROOT:-outputs}/results/cm1_xvlad_ablations"
+    log_dir: "${PATCHFORMER_OUTPUT_ROOT:-outputs}/runs/cm1_xvlad_ablations/{run_name}"
+    save_path: "${PATCHFORMER_CHECKPOINT_ROOT:-outputs/checkpoints}/cm1_xvlad_ablations/{run_name}.pt"
+
+experiments:
+  - name: ablate_ghost_centers_g1
+    overrides:
+      model:
+        nhead: 4
+        d_model: 256
+        xvlad_clusters: 1
+        xvlad_ghost_clusters: 1
+
+  - name: ablate_ghost_centers_g3
+    overrides:
+      model:
+        nhead: 4
+        d_model: 256
+        xvlad_clusters: 1
+        xvlad_ghost_clusters: 3
+
+  - name: ablate_ghost_centers_g4
+    overrides:
+      model:
+        nhead: 4
+        d_model: 256
+        xvlad_clusters: 1
+        xvlad_ghost_clusters: 4
+

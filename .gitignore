@@ -1,0 +1,16 @@
+__pycache__/
+*/__pycache__/
+outputs/
+checkpoints/
+runs/
+results/
+visualizations/
+embeddings_tmp/
+*.log
+*.jpg
+*.jpeg
+*.png
+*.bmp
+*.tif
+*.tiff
+.vscode/

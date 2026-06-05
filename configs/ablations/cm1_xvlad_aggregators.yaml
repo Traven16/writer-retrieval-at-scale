@@ -1,0 +1,39 @@
+extends:
+  - ../_base/cm1_data.yaml
+  - ../_base/xvlad_resnet18.yaml
+  - ../_base/arcface_triplet.yaml
+  - ../_base/runtime.yaml
+
+defaults:
+  run:
+    results_dir: "${PATCHFORMER_OUTPUT_ROOT:-outputs}/results/cm1_xvlad_ablations"
+    log_dir: "${PATCHFORMER_OUTPUT_ROOT:-outputs}/runs/cm1_xvlad_ablations/{run_name}"
+    save_path: "${PATCHFORMER_CHECKPOINT_ROOT:-outputs/checkpoints}/cm1_xvlad_ablations/{run_name}.pt"
+
+experiments:
+  - name: ablate_agg_xvlad_k4_g1_h1
+    overrides:
+      model:
+        decoder_type: xvlad
+        d_model: 512
+        nhead: 1
+        xvlad_clusters: 4
+        xvlad_ghost_clusters: 1
+
+  - name: ablate_agg_ghostvlad_k8_g1
+    overrides:
+      model:
+        decoder_type: ghostvlad
+        d_model: 512
+        nhead: 16
+        xvlad_clusters: null
+        xvlad_ghost_clusters: null
+        ghostvlad_clusters: 8
+        ghostvlad_ghost_clusters: 1
+
+  - name: ablate_agg_mean_pooling
+    overrides:
+      model:
+        decoder_type: mean_pooling
+        xvlad_clusters: null
+        xvlad_ghost_clusters: null
