@@ -99,7 +99,7 @@ $PATCHFORMER_DATA_ROOT/cm1_final_masks/{train,val,test}/<image-stem>.png
 tar -xf cm1_final_masks.tar -C data/        # -> data/cm1_final_masks/{train,val,test}
 ```
 
-> Mask archive: `<ZENODO_URL>` (≈2 GB). They are plain `.png` files the loader
+> Mask archive: [`<ZENODO_URL>`](https://zenodo.org/records/20560665) (≈2 GB). They are plain `.png` files the loader
 > reads via `Image.open(...).convert("L")`, so no special handling is required.
 
 ### Patches
