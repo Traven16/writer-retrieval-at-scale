@@ -1,5 +1,4 @@
-# Patchformer Research Release
-
+# Writer Retrieval at Scale
 This folder contains the research code needed to reproduce the CM1 Patchformer/X-VLAD training runs. The application under `app/`, local databases, cached bytecode, checkpoints, and prior run outputs are intentionally excluded.
 
 ## Setup
